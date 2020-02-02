@@ -30,4 +30,10 @@ function gameStart() {
     })
 }
 
+function addChat() {
+    $("#submitButton").on("click", function(){
+        // store $("#chatInput").val() into databse under correct user and display it on the page
+    })
+}
+
 gameStart()
