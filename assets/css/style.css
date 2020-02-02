@@ -2,3 +2,20 @@
             Body
 ================================= */
 
+.container {
+    margin-top: 50px;
+}
+
+.rpsChoices {
+    width: 150px;
+    height: 220px;
+    margin-top: 75px;
+}
+
+#chat {
+    margin: 0 5%;
+}
+
+.chatBox {
+    width: 90%;
+}

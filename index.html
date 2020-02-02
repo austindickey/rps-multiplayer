@@ -14,7 +14,43 @@
 </head>
 <body>
     
-
+    <div class="container">
+        <div class="row">
+            <section class="col-md-9">
+                <h3 class="text-center">Rock, Paper, Scissors Game</h3>
+                <p><strong>Instructions: </strong>Choose an option, and wait for your opponent to choose an option as well. Rock beats scissors, scissors beat paper, paper beats rock. Feel free to chat with your opponent during the games.</p>
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-2">
+                        <div class="boss">
+                            <a href="#"><img class="rpsChoices" alt="Rock" src="assets/img/rock.jpg"/></a>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="boss">
+                            <a href="#"><img class="rpsChoices" alt="Paper" src="assets/img/paper.jpg"/></a>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="boss">
+                            <a href="#"><img class="rpsChoices" alt="Scissors" src="assets/img/scissors.jpg"/></a>
+                        </div>
+                    </div>
+                    <div class="col-md-3"></div>
+                </div>
+            </section>
+            <section class="col-md-3">
+                <form id="chat" role="chat">
+                    <label for="chatInput">
+                        Type your message here:
+                    </label>
+                    <textarea type="text" class="chatBox" id="chatInput"></textarea>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+                <div id="chatContent"></div>
+            </section>
+        </div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/js/game.js"></script>
