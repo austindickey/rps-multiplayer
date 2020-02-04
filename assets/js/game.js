@@ -5,6 +5,7 @@ var player1losses = 0
 var player2wins = 0
 var player2losses = 0
 var ties = 0
+var storageIndex = 0
 
 // Firebase Configuration
 var firebaseConfig = {
@@ -17,20 +18,29 @@ var firebaseConfig = {
     appId: "1:275531079845:web:fec3b13657fff4c065ed4c"
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-var database = firebase.database();
+firebase.initializeApp(firebaseConfig)
+var database = firebase.database()
 
 function gameStart() {
     $(".choices").on("click", function () {
 
-        database.ref().set({
-            player1choice: $(this).data("value"),
-            player2choice: $(this).data("value")
-        });
+        if (storageIndex === 0) {
+            database.ref("player1").set({
+                player1choice: $(this).data("value")
+            });
+            storageIndex++
+        } else {
+            database.ref("player2").set({
+                player2choice: $(this).data("value")
+            });
+            storageIndex = 0
+        }
 
-        database.ref().on("value", function(snapshot) {
-            console.log(snapshot.val());
+        database.ref("player1").on("value", function(snapshot) {
             player1choice = snapshot.val().player1choice
+        })
+
+        database.ref("player2").on("value", function(snapshot) {
             player2choice = snapshot.val().player2choice
         })
 
@@ -39,14 +49,42 @@ function gameStart() {
             player2losses++
             $("#player1wins").text(player1wins)
             $("#player2losses").text(player2losses)
+
+            database.ref("player1").set({
+                player1choice: ""
+            })
+
+            database.ref("player2").set({
+                player2choice: ""
+            })
+
         } else if (player1choice === player2choice) {
             ties++
             $(".ties").text(ties)
+
+            database.ref("player1").set({
+                player1choice: ""
+            })
+
+            database.ref("player2").set({
+                player2choice: ""
+            })
+
+        } else if (player1choice === "" || player2choice === ""){
+
         } else {
             player1losses++
             player2wins++
             $("#player1losses").text(player1losses)
             $("#player2wins").text(player2wins)
+
+            database.ref("player1").set({
+                player1choice: ""
+            })
+
+            database.ref("player2").set({
+                player2choice: ""
+            })
         }
     })
 }
