@@ -34,11 +34,11 @@
                 </div>
                 <h3 class="text-center">Players Score</h3>
                 <div class="row">
-                    <div id="player1score" class="col-md-6">
+                    <div id="player1score" class="col-md-5">
                         <table class="scoreTables">
                             <thead>
                                 <tr>
-                                    <th colspan="2">Player 1</th>
+                                    <th colspan="2">Player 1 Score</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -57,11 +57,17 @@
                             </tbody>
                         </table>
                     </div>
-                    <div id="player2score" class="col-md-6">
+
+                    <div id="connectedPlayers" class="col-md-2">
+                        <h5>Connected Users</h5>
+                        <p id="playerCount"></p>
+                    </div>
+
+                    <div id="player2score" class="col-md-5">
                         <table class="scoreTables">
                             <thead>
                                 <tr>
-                                    <th colspan="2">Player 2</th>
+                                    <th colspan="2">Player 2 Score</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -92,6 +98,12 @@
             </section>
         </div>
     </div>
+    
+    <div id="clearFix"></div>
+
+    <footer>
+        <p>Created by Austin Dickey</p>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/js/game.js"></script>
