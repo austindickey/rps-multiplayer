@@ -35,6 +35,7 @@ connectionsRef.on("value", function(snapshot) {
     $("#playerCount").text(snapshot.numChildren())
 })
 
+
 function gameStart() {
     $(".choices").on("click", function () {
 
@@ -103,10 +104,23 @@ function gameStart() {
     })
 }
 
-function addChat() {
-    $("#submitButton").on("click", function(){
-        // store $("#chatInput").val() into databse under correct user and display it on the page
+
+$("#submitButton").on("click", function(){
+    
+    var message = $("#chatInput").val().trim()
+
+    database.ref("/chat").push({
+        message: message,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
     })
-}
+
+    $("#chatInput").val("")
+    $("#chatContent").empty()
+
+    database.ref("/chat").orderByChild("dateAdded").limitToLast(5).on("child_added", function(childSnapshot) {
+        $("#chatContent").append("<p class='message'>Message: " + childSnapshot.val().message + "</p>")
+    })
+    
+})
 
 gameStart()
