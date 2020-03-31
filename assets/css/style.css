@@ -12,13 +12,17 @@ body {
 }
 
 .container {
-    margin-top: 50px;
+    margin-top: 30px;
     min-height: 100%;
     margin-bottom: -75px;
 }
 
+h2 {
+    margin-bottom: 15px;
+}
+
 h3 {
-    margin-top: 50px;
+    margin-top: 20px;
 }
 
 h4 {
@@ -34,10 +38,14 @@ h6 {
     font-style: italic;
 }
 
+#choiceOptions {
+    margin: 0 20%;
+}
+
 .rpsImg {
     width: 150px;
     height: 220px;
-    margin-top: 50px;
+    margin-top: 10px;
 }
 
 #current-turn,
@@ -112,4 +120,30 @@ a {
 a:hover {
     text-decoration: none;
     color: #fff;
+}
+
+/* =================================
+        Mobile Responsiveness
+================================= */
+
+@media (max-width:1024px) {
+    #swap-zone {margin: 0}
+    #choiceOptions {margin: 0 14%;}
+}
+
+@media (max-width:768px) {
+    .rpsImg {width: 100px; height: 150px;}
+    #choiceOptions {margin: 0 16%;}
+}
+
+@media (max-width:414px) {
+    #swap-zone {margin: 0 19%;}
+    #choiceOptions {margin: 0 6%;}
+    .scoreTables {margin: 10px 20%;}
+    #chat {margin-top: 15px;}
+}
+
+@media (max-width:375px) {
+    #swap-zone {margin: 0 16%;}
+    #choiceOptions {margin: 0 1%;}
 }

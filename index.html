@@ -18,15 +18,15 @@
     
     <div class="container">
         <div class="row">
-            <section class="col-md-9">
-                <h2 class="text-center">Rock, Paper, Scissors Game</h2>
+            <section class="col-md-9 col-sm-12">
+                <h2 class="text-center">Rock, Paper, Scissors Multiplayer Game</h2>
                 <!-- Instructions -->
                 <p><strong>Instructions: </strong>Input your name, and click start. Choose an option, and wait for your opponent to choose an option as well. Rock beats scissors, scissors beat paper, paper beats rock. Feel free to chat with your opponent during the games. The game will not start until 2 users are connected to the game.</p>
 
                 <!-- Username Field -->
                 <div class="row">
                     <div class="col-md-4"></div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-sm-12">
                         <form>
                             <div id="swap-zone" class="form-row">
                                 <input id="username" placeholder="Your Name"/>
@@ -45,17 +45,23 @@
 
                 <!-- Choice Options -->
                 <div id="choiceOptions" class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-2">
+                    <div class="col-md-12">
                         <a class="choices" data-value="Rock" href="#"><img class="rpsImg" alt="Rock" src="assets/img/rock.png"/></a>
-                    </div>
-                    <div class="col-md-2">
                         <a class="choices" data-value="Paper" href="#"><img class="rpsImg" alt="Paper" src="assets/img/paper.png"/></a>
-                    </div>
-                    <div class="col-md-2">
                         <a class="choices" data-value="Scissors" href="#"><img class="rpsImg" alt="Scissors" src="assets/img/scissors.png"/></a>
                     </div>
-                    <div class="col-md-3"></div>
+
+                    <!-- <div class="col-md-3"></div>
+                    <div class="col-md-2 col-sm-3">
+                        <a class="choices" data-value="Rock" href="#"><img class="rpsImg" alt="Rock" src="assets/img/rock.png"/></a>
+                    </div>
+                    <div class="col-md-2 col-sm-3">
+                        <a class="choices" data-value="Paper" href="#"><img class="rpsImg" alt="Paper" src="assets/img/paper.png"/></a>
+                    </div>
+                    <div class="col-md-2 col-sm-3">
+                        <a class="choices" data-value="Scissors" href="#"><img class="rpsImg" alt="Scissors" src="assets/img/scissors.png"/></a>
+                    </div>
+                    <div class="col-md-3"></div> -->
                 </div>
 
                 <!-- Game Results -->
@@ -127,7 +133,7 @@
             </section>
 
             <!-- Chat Box -->
-            <section class="col-md-3">
+            <section class="col-md-3 col-sm-12">
                 <form id="chat" role="chat">
                     <label for="chatInput">Type your message here:</label>
                     <textarea type="text" id="chatInput" class="chatBox"></textarea>
