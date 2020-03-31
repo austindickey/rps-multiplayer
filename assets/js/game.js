@@ -46,14 +46,16 @@ $("#username").keypress(function(event) {
 
 // Join Game Function
 function joinGame() {
+
     var chatDataDisc = database.ref("/chat/" + Date.now())
-    console.log("working")
 
     if (currentPlayers < 2) {
         if (playerOneExists) {
             playerNum = 2
         } else {
             playerNum = 1
+            $("#turn").text("Waiting for another player to join.")
+            $("#choiceOptions").hide()
         }
   
         playerRef = database.ref("/players/" + playerNum)
@@ -62,11 +64,13 @@ function joinGame() {
             name: username,
             wins: 0,
             losses: 0,
+            ties: 0,
             choice: null
         })
 
         playerRef.onDisconnect().remove()
         currentTurnRef.onDisconnect().remove()
+        chatData.onDisconnect().remove()
     
         chatDataDisc.onDisconnect().set({
             name: username,
@@ -77,7 +81,7 @@ function joinGame() {
     
         $("#swap-zone").empty()
     
-        $("#swap-zone").append($("<h4>").text("Welcome " + username + "! You are Player " + playerNum))
+        $("#swap-zone").append($("<h4>").html("Welcome " + username + "!<br>You are Player " + playerNum))
     } else {
     alert("Sorry, the game is currently full. Please try again later.")
     }
@@ -112,11 +116,10 @@ $(".choices").on("click", function() {
   
 // Chat updater - ordered by time
 chatData.orderByChild("time").on("child_added", function (snapshot) {
-    $("#chatContent").append(
-        $("<p>").addClass("message"),
-        $("<span>").text(snapshot.val().name + ":" + snapshot.val().message)
-    )
-    $("#chatContent").scrollTop($("#chatContent")[0].scrollHeight)
+    var newP = $("<p>")
+    newP.addClass("message")
+    newP.text(snapshot.val().name + ": " + snapshot.val().message)
+    $("#chatContent").append(newP)
 })
 
 // Tracks changes in player objects
@@ -132,19 +135,21 @@ playersRef.on("value", function (snapshot) {
     if (playerOneExists) {
         $("#player1wins").text(playerOneData.wins)
         $("#player1losses").text(playerOneData.losses)
-        $(".ties").text(playerOneData.ties)
+        $("#player1ties").text(playerOneData.ties)
     } else {
         $("#player1wins").text("0")
         $("#player1losses").text("0")
-        $(".ties").text("0")
+        $("#player1ties").text("0")
     }
 
     if (playerTwoExists) {
         $("#player2wins").text(playerTwoData.wins)
         $("#player2losses").text(playerTwoData.losses)
+        $("#player2ties").text(playerTwoData.ties)
     } else {
         $("#player2wins").text("0")
         $("#player2losses").text("0")
+        $("#player2ties").text("0")
     }
 })
 
@@ -156,16 +161,21 @@ currentTurnRef.on("value", function (snapshot) {
         if (currentTurn === 1) {
             if (currentTurn === playerNum) {
                 $("#turn").text("It's Your Turn!")
+                $("#choiceOptions").show()
             } else {
                 $("#turn").text("Waiting for " + playerOneData.name + " to choose.")
+                $("#choiceOptions").hide()
             }
         } else if (currentTurn === 2) {
             if (currentTurn === playerNum) {
                 $("#turn").text("It's Your Turn!")
+                $("#choiceOptions").show()
             } else {
                 $("#turn").text("Waiting for " + playerTwoData.name + " to choose.")
+                $("#choiceOptions").hide()
             }
         } else if (currentTurn === 3) {
+            $("#choiceOptions").hide()
             gameLogic(playerOneData.choice, playerTwoData.choice)
 
             $("#player1-chosen").text(playerOneData.choice)
@@ -182,9 +192,7 @@ currentTurnRef.on("value", function (snapshot) {
                 }
             }
 
-            setTimeout(moveOn, 2000)
-        } else {
-            $("#turn").text("Waiting for another player to join.")
+            setTimeout(moveOn, 3000)
         }
     }
 })
@@ -200,42 +208,48 @@ playersRef.on("child_added", function (snapshot) {
 function gameLogic(player1choice, player2choice) {
     var playerOneWon = function () {
         $("#turn").text(playerOneData.name + " Wins!")
+        var newWin = playerOneData.wins + 1
+            var newLoss = playerTwoData.losses + 1
         if (playerNum === 1) {
             playersRef
                 .child("1")
                 .child("wins")
-                .set(playerOneData.wins + 1)
+                .set(newWin)
             playersRef
                 .child("2")
                 .child("losses")
-                .set(playerTwoData.losses + 1)
+                .set(newLoss)
         }
     }
 
     var playerTwoWon = function () {
         $("#turn").text(playerTwoData.name + " Wins!")
+        var newWin = playerTwoData.wins + 1
+        var newLoss = playerOneData.losses + 1
         if (playerNum === 2) {
             playersRef
                 .child("2")
                 .child("wins")
-                .set(playerTwoData.wins + 1)
+                .set(newWin)
             playersRef
                 .child("1")
                 .child("losses")
-                .set(playerOneData.losses + 1)
+                .set(newLoss)
         }
-    };
+    }
 
     var tie = function () {
         $("#turn").text("Tie Game!")
+        var play1Tie = playerOneData.ties + 1
+        var play2Tie = playerTwoData.ties + 1
         playersRef
             .child("1")
             .child("ties")
-            .set(playerTwoData.ties + 1)
+            .set(play1Tie)
         playersRef
             .child("2")
             .child("ties")
-            .set(playerOneData.ties + 1)
+            .set(play2Tie)
     }
 
     if (player1choice === "Rock" && player2choice === "Rock") {

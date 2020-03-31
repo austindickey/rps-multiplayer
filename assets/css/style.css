@@ -21,8 +21,17 @@ h3 {
     margin-top: 50px;
 }
 
+h4 {
+    text-align: center;
+    margin: 0 8%;
+}
+
 h5 {
     text-decoration: underline;
+}
+
+h6 {
+    font-style: italic;
 }
 
 .rpsImg {
@@ -30,6 +39,20 @@ h5 {
     height: 220px;
     margin-top: 50px;
 }
+
+#current-turn,
+#game-results {
+    width: 50%;
+    border: 2px solid #000;
+    text-align: center;
+    margin: 25px 25%;
+    background-color: orange;
+    padding: 8px 0;
+}
+
+/* =================================
+            Chat Box
+================================= */
 
 #chat {
     margin: 0 5%;
@@ -48,20 +71,13 @@ h5 {
     margin-top: 15px;
 }
 
-#connectedPlayers {
-    border: 2px solid #000;
-    text-align: center;
-    margin: 25px 0;
-    background-color: orange;
-}
-
-#playerCount {
-    font-size: 30px;
-    padding-top: 10px;
-}
+/* =================================
+            Player Score
+================================= */
 
 .scoreTables {
-    margin: 25px 30%;
+    width: 60%;
+    margin: 25px 15%;
     background-color: orange;
 }
 
@@ -71,6 +87,10 @@ h5 {
     padding: 5px 20px;
     text-align: center;
 }
+
+/* =================================
+            Footer
+================================= */
 
 #clearFix {
     height: 75px;

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rock Paper Scissors - Multiplayer</title>
+
+    <!-- Style and Database CDN Links -->
     <link rel="stylesheet" href="assets/css/reset.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -18,7 +20,10 @@
         <div class="row">
             <section class="col-md-9">
                 <h2 class="text-center">Rock, Paper, Scissors Game</h2>
-                <p><strong>Instructions: </strong>Choose an option, and wait for your opponent to choose an option as well. Rock beats scissors, scissors beat paper, paper beats rock. Feel free to chat with your opponent during the games. Wait until there are 2 users connected to start the game.</p>
+                <!-- Instructions -->
+                <p><strong>Instructions: </strong>Input your name, and click start. Choose an option, and wait for your opponent to choose an option as well. Rock beats scissors, scissors beat paper, paper beats rock. Feel free to chat with your opponent during the games. The game will not start until 2 users are connected to the game.</p>
+
+                <!-- Username Field -->
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4">
@@ -31,32 +36,47 @@
                     </div>
                     <div class="col-md-4"></div>
                 </div>
-                <div class="row">
+
+                <!-- Shows the Current Turn -->
+                <div id="current-turn" class="col-md-12 text-center">
+                    <h5>Current Turn</h5>
+                    <p id="turn"></p>
+                </div>
+
+                <!-- Choice Options -->
+                <div id="choiceOptions" class="row">
                     <div class="col-md-3"></div>
                     <div class="col-md-2">
-                        <a class="choices" data-value="rock" href="#"><img class="rpsImg" alt="Rock" src="assets/img/rock.png"/></a>
+                        <a class="choices" data-value="Rock" href="#"><img class="rpsImg" alt="Rock" src="assets/img/rock.png"/></a>
                     </div>
                     <div class="col-md-2">
-                        <a class="choices" data-value="paper" href="#"><img class="rpsImg" alt="Paper" src="assets/img/paper.png"/></a>
+                        <a class="choices" data-value="Paper" href="#"><img class="rpsImg" alt="Paper" src="assets/img/paper.png"/></a>
                     </div>
                     <div class="col-md-2">
-                        <a class="choices" data-value="scissors" href="#"><img class="rpsImg" alt="Scissors" src="assets/img/scissors.png"/></a>
+                        <a class="choices" data-value="Scissors" href="#"><img class="rpsImg" alt="Scissors" src="assets/img/scissors.png"/></a>
                     </div>
                     <div class="col-md-3"></div>
                 </div>
-                <div class="row">
-                    <div class="col-2"></div>
-                    <div class="col-4">
+
+                <!-- Game Results -->
+                <div id="game-results" class="row text-center">
+                    <div class="col-md-12 ">
+                        <h5>Game Results</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Player 1:</h6>
                         <div id="player1-chosen"></div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-md-6">
+                        <h6>Player 2:</h6>
                         <div id="player2-chosen"></div>
                     </div>
-                    <div class="col-2"></div>
                 </div>
+
+                <!-- Players Score -->
                 <h3 class="text-center">Players Score</h3>
                 <div class="row">
-                    <div id="player1score" class="col-md-5">
+                    <div id="player1score" class="col-md-6">
                         <table class="scoreTables">
                             <thead>
                                 <tr>
@@ -74,18 +94,13 @@
                                 </tr>
                                 <tr>
                                     <th>Ties:</th>
-                                    <td class="ties">0</td>
+                                    <td id="player1ties">0</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div id="current-turn" class="col-md-2">
-                        <h5>Current Turn</h5>
-                        <p id="turn"></p>
-                    </div>
-
-                    <div id="player2score" class="col-md-5">
+                    <div id="player2score" class="col-md-6">
                         <table class="scoreTables">
                             <thead>
                                 <tr>
@@ -103,13 +118,15 @@
                                 </tr>
                                 <tr>
                                     <th>Ties:</th>
-                                    <td class="ties">0</td>
+                                    <td id="player2ties">0</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </section>
+
+            <!-- Chat Box -->
             <section class="col-md-3">
                 <form id="chat" role="chat">
                     <label for="chatInput">Type your message here:</label>
@@ -117,18 +134,19 @@
                     <button type="submit" id="submitButton" class="btn btn-secondary">Send</button>
                     <hr>
                     <div id="chatContent"></div>
-                </form>
-                
+                </form> 
             </section>
         </div>
     </div>
     
     <div id="clearFix"></div>
 
+    <!-- Footer -->
     <footer>
-        <p>Created by <a href="https://austindickey.github.io/bootstrap-portfolio/" target="_blank">Austin Dickey</a></p>
+        <p>Created by <a href="https://austindickey.github.io" target="_blank">Austin Dickey</a></p>
     </footer>
 
+    <!-- JS and jQuery CDN Links -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="assets/js/game.js"></script>
 </body>
