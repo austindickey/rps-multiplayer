@@ -30,18 +30,22 @@ var playerTwoData = null
 
 // Create User
 $("#start").click(function() {
+
     if ($("#username").val() !== "") {
         username = $("#username").val()
         joinGame()
     }
+    
 })
 
 // Pressing enter works the same as clicking submit button
 $("#username").keypress(function(event) {
+
     if (event.which === 13 && $("#username").val() !== "") {
         username = $("#username").val()
         joinGame()
     }
+
 })
 
 // Join Game Function
@@ -50,12 +54,17 @@ function joinGame() {
     var chatDataDisc = database.ref("/chat/" + Date.now())
 
     if (currentPlayers < 2) {
+
         if (playerOneExists) {
+
             playerNum = 2
+
         } else {
+
             playerNum = 1
             $("#turn").text("Waiting for another player to join.")
             $("#choiceOptions").hide()
+
         }
   
         playerRef = database.ref("/players/" + playerNum)
@@ -82,13 +91,17 @@ function joinGame() {
         $("#swap-zone").empty()
     
         $("#swap-zone").append($("<h4>").html("Welcome " + username + "!<br>You are Player " + playerNum))
+
     } else {
-    alert("Sorry, the game is currently full. Please try again later.")
+
+        alert("Sorry, the game is currently full. Please try again later.")
+
     }
 }
 
 // Chat Functionality
 $("#submitButton").click(function() {
+
     if ($("#chatInput").val() !== "") {
         var message = $("#chatInput").val()
   
@@ -101,10 +114,12 @@ $("#submitButton").click(function() {
     
         $("#chatInput").val("")
     }
+
 })
 
 // Choice Listener
 $(".choices").on("click", function() {
+
     var clickChoice = $(this).data("value")
     playerRef.child("choice").set(clickChoice)
     $("#player" + playerNum + "chosen").text(clickChoice)
@@ -112,18 +127,22 @@ $(".choices").on("click", function() {
     currentTurnRef.transaction(function(turn) {
         return turn + 1
     })
+
 })
   
 // Chat updater - ordered by time
 chatData.orderByChild("time").on("child_added", function (snapshot) {
+
     var newP = $("<p>")
     newP.addClass("message")
     newP.text(snapshot.val().name + ": " + snapshot.val().message)
     $("#chatContent").append(newP)
+
 })
 
 // Tracks changes in player objects
 playersRef.on("value", function (snapshot) {
+
     currentPlayers = snapshot.numChildren()
 
     playerOneExists = snapshot.child("1").exists()
@@ -155,6 +174,7 @@ playersRef.on("value", function (snapshot) {
 
 // Detects changes in current turn key
 currentTurnRef.on("value", function (snapshot) {
+
     currentTurn = snapshot.val()
 
     if (playerNum) {
@@ -199,17 +219,22 @@ currentTurnRef.on("value", function (snapshot) {
 
 // If there are 2 players, the game will start
 playersRef.on("child_added", function (snapshot) {
+
     if (currentPlayers === 1) {
         currentTurnRef.set(1)
     }
+
 })
 
 // Determine the outcome
 function gameLogic(player1choice, player2choice) {
+
     var playerOneWon = function () {
+
         $("#turn").text(playerOneData.name + " Wins!")
         var newWin = playerOneData.wins + 1
-            var newLoss = playerTwoData.losses + 1
+        var newLoss = playerTwoData.losses + 1
+
         if (playerNum === 1) {
             playersRef
                 .child("1")
@@ -220,12 +245,15 @@ function gameLogic(player1choice, player2choice) {
                 .child("losses")
                 .set(newLoss)
         }
+
     }
 
     var playerTwoWon = function () {
+
         $("#turn").text(playerTwoData.name + " Wins!")
         var newWin = playerTwoData.wins + 1
         var newLoss = playerOneData.losses + 1
+
         if (playerNum === 2) {
             playersRef
                 .child("2")
@@ -239,9 +267,11 @@ function gameLogic(player1choice, player2choice) {
     }
 
     var tie = function () {
+
         $("#turn").text("Tie Game!")
-        var play1Tie = playerOneData.ties + 1
-        var play2Tie = playerTwoData.ties + 1
+        var play1Tie = playerOneData.ties + .5
+        var play2Tie = playerTwoData.ties + .5
+
         playersRef
             .child("1")
             .child("ties")
